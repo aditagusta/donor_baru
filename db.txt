@@ -1,0 +1,5 @@
+- table login ( admin rs X user ) 
+- donor ( iddonor iduser tgldonor status(tertunda belumselesai selesai) )
+- penyaluran_darah ( idpenyaluran iddonor idrs tglpenyaluran status(- - -))
+- darah ( iddarah nama keterangan stok )
+- X permintaan_darah ( idpermintaan iddarah nama_pasien tgl_lahir jk tgl_kebutuhan tgl_minta status ) 
