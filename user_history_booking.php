@@ -57,7 +57,7 @@
                             <td><?php echo $donor['status']; ?></td>
                             <td><?php echo $donor['keterangan']; ?></td>
                             <td>
-                                <?php if(in_array($donor['status'], array("Belum Selesai", "Tertunda", "Tidak Lengkap"))): ?>
+                                <?php if($donor['status'] == "Belum Selesai"): ?>
                                     <a href="user_batal_booking.php?id_donor=<?=$donor['id_donor']?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Batalkan Donor</a>
                                     <br>
                                     <br>

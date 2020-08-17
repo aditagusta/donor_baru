@@ -90,6 +90,10 @@ From
                                 <th>Nohp</th>
                                 <td><?=$donor['nohp']?></td>
                             </tr>
+                            <tr>
+                                <th>Keterangan</th>
+                                <td><?=$donor['keterangan']?></td>
+                            </tr>
                         </table>
                     </div>
             </div>
