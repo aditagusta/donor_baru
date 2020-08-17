@@ -6,8 +6,8 @@ include 'config.php';
 <hr>
 
 <ul class="nav nav-stacked">
-    <li><a href="">Booking Jadwal Donor</a></li>
-    <li><a href="">History</a></li>
+    <li><a href="user_booking_donor.php">Booking Jadwal Donor</a></li>
+    <li><a href="user_history_booking.php">History Donor</a></li>
     <hr>
 </ul>
 
