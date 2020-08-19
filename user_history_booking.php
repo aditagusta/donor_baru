@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION['id_user'] = 1;
     require_once "functions.php";
     require_once "config.php";
 ?>
@@ -33,7 +32,7 @@
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th>No</th>
-                        <th>No Donor</th>
+                        <th width="200">No Donor</th>
                         <th>Nama Pendonor</th>
                         <th>Tanggal Booking</th>
                         <th>Tanggal Donor</th>
@@ -49,7 +48,7 @@
                     ?>
                         <tr>
                             <td><?=$no+1?></td>
-                            <td><?php echo date("d-m-Y-His".$donor['id_donor'], strtotime($donor['tgl_booking'])); ?></td>
+                            <td><?php echo "D".$donor['id_donor'].date("dmYHis", strtotime($donor['tgl_booking'])); ?></td>
                             <td><?php echo $donor['nama_lengkap']; ?></td>
                             <td><?php echo tanggal_indo($donor['tgl_booking']); ?></td>
                             <td><?php echo tanggal_indo($donor['tgl_donor'])." ".substr($donor['tgl_donor'], 10); ?></td>
