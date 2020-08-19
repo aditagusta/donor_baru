@@ -39,7 +39,7 @@ From
                             </tr>
                             <tr>
                                 <th>No Donor</th>
-                                <td><?=date("d-m-Y-His".$donor['id_donor'], strtotime($donor['tgl_booking']))?></td>
+                                <td><?="D".$donor['id_donor'].date("dmYHis", strtotime($donor['tgl_booking']))?></td>
                             </tr>
                             <tr>
                                 <th>Nama Pendonor</th>
