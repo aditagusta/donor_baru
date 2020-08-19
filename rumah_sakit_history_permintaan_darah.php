@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
     <?php include("user_navigasiatas.php"); ?>
     <div class="container" style='margin-top:70px;'>
         <div class="row">
@@ -68,6 +67,7 @@
                         }
                     ?>
                 </table>
+
             </div>
         </div>
     </div>
