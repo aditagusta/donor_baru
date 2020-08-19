@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-$sql =  $con->count("tb_pesan", "*", ["status" => 1]);
+$sql =  $con->count("tb_pesan", "*", ["status" => 0]);
 if ($sql != 0) {
 	$mes = '<spasql class="badge pull-right">' . $sql . ' Belum dibaca</spasql>';
 } else {
@@ -16,7 +16,7 @@ if ($sql != 0) {
 	<li><a href="admin_permintaan.php"><i class="fa fa-users fa-lg text-success"></i> Permintaan Darah</a></li>
 	<li><a href="admin_donor.php"><i class="fa fa-users fa-lg text-danger"></i> Donor Darah</a></li>
 	<li><a href="admin_lap_permintaan.php"><i class="fa fa-book fa-lg"></i> Laporan Permintaan Darah</a></li>
-	<li><a href="admin_darah_darah.php"><i class="fa fa-book fa-lg"></i> Laporan Donor Darah</a></li>
+	<li><a href="admin_darah_laporan.php"><i class="fa fa-book fa-lg"></i> Laporan Donor Darah</a></li>
 	<hr>
 
 	<!-- <li><a href="#add" data-toggle="collapse"><i class="fa fa-cogs fa-lg"></i> Pengaturan</a></li>

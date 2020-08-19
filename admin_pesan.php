@@ -28,44 +28,43 @@
 
 
 
-				<!-- <?php
-						$sql = "SELECT * FROM pesan ORDER BY ID DESC";
-						$result = $con->query($sql);
-						if ($result->num_rows > 0) {
-							echo '<ul class="list-group">';
-							while ($row = $result->fetch_assoc()) {
-								if ($row['STATUS'] == '1') {
-									echo '<li class="list-group-item active">
-						<span>
-							<b><i class="fa fa-envelope-square"> </i>      	' . $row["NAMA"] . '</b>: ' . substr($row["PESAN"], 0, 50) . '....
-						</span>
-						<span   class="pull-right">
-							<i>' . $row['WAKTU'] . '</i>&nbsp;
-							<a href="lihat_pesan.php?id=' . $row['ID'] . '" class="btn btn-primary  btn-xs">Lihat</a>
-							<a href="admin_hapus_pesan.php?id=' . $row['ID'] . '"  class="btn btn-danger btn-xs">Hapus</a>
-						</span>
+				<?php
+				$sql = $con->select("tb_pesan", "*");
+				$hitung = $con->count("tb_pesan", "*");
 
-					</li>';
-								} else {
-									echo '<li class="list-group-item">
-						<span>
-							<b><i class="fa fa-envelope-square
-"></i> ' . $row["NAMA"] . '</b>: ' . substr($row["PESAN"], 0, 50) . '....
-						</span>
-						<span   class="pull-right">
-							<i>' . $row['WAKTU'] . '</i>&nbsp;
-							<a href="lihat_pesan.php?id=' . $row['ID'] . '" class="btn btn-primary btn-xs">Lihat</a>
-							<a href="admin_hapus_pesan.php?id=' . $row['ID'] . '"  class="btn btn-danger btn-xs">Hapus</a>
-						</span>
-				</li>';
-								}
-								echo "<br>";
-							}
-							echo '</ul>';
+				if ($hitung > 0) {
+					echo '<ul class="list-group">';
+					foreach ($sql as $i => $row) {
+						if ($row['status'] == '0') {
+							echo '<li class="list-group-item active">
+									<span>
+										<b><i class="fa fa-envelope-square"> </i>' . $row["nama"] . '</b>: ' . substr($row["pesan"], 0, 50) . '....
+									</span>
+									<span   class="pull-right">	
+										<i>' . $row['tgl_pesan'] . '</i>&nbsp;
+										<a href="lihat_pesan.php?id=' . $row['id_pesan'] . '" class="btn btn-primary  btn-xs">Lihat</a>
+										<a href="admin_hapus_pesan.php?id=' . $row['id_pesan'] . '"  class="btn btn-danger btn-xs">Hapus</a>
+									</span>
+								</li>';
 						} else {
-							echo "<div class='alert alert-info mess'>Tidak Ada Lagi Pesan</div>";
+							echo '<li class="list-group-item">
+									<span>
+										<b><i class="fa fa-envelope-square"></i> ' . $row["nama"] . '</b>: ' . substr($row["pesan"], 0, 50) . '....
+									</span>
+									<span   class="pull-right">
+										<i>' . $row['tgl_pesan'] . '</i>&nbsp;
+										<a href="lihat_pesan.php?id=' . $row['id_pesan'] . '" class="btn btn-primary btn-xs">Lihat</a>
+										<a href="admin_hapus_pesan.php?id=' . $row['id_pesan'] . '"  class="btn btn-danger btn-xs">Hapus</a>
+									</span>
+							</li>';
 						}
-						?> -->
+						echo "<br>";
+					}
+					echo '</ul>';
+				} else {
+					echo "<div class='alert alert-info mess'>Tidak Ada Lagi Pesan</div>";
+				}
+				?>
 			</div>
 		</div>
 	</div>
