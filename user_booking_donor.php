@@ -4,7 +4,6 @@
     require_once "config.php";
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
-        $_SESSION['id_user'] = 1;
         $nama_foto = fileUpload($_FILES['foto'], "images/");
         $con->insert("tb_donor", array(
             "id_user"   => $_SESSION['id_user'],
