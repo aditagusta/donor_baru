@@ -14,7 +14,7 @@ include("admin_function.php");
 	</head>
 	<body>
 
-<?php include("menu_adminatas.php"); ?>
+<?php include("menu_admin.php"); ?>
 <div class="container"  style='margin-top:70px;'>
 	<div class="row">
 		<div class="col-sm-3">

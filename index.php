@@ -11,8 +11,6 @@
 
 <body>
 
-    <?php include "login.php"; ?>
-
     <?php include "menu_navigasi_atas.php"; ?>
     <!-- Header Carousel -->
     <header id="myCarousel" class="carousel slide">

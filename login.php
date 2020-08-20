@@ -25,7 +25,7 @@ if (isset($_POST['login']))
         $_SESSION['level'] = $level;
         if ($_SESSION['level'] == "admin")
         {
-            echo "<script>window.location='admin_pesan.php'</script>";
+            echo "<script>window.location='admin_beranda.php'</script>";
         }
         elseif($_SESSION['level'] == "user")
         {

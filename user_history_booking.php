@@ -48,7 +48,7 @@
                     ?>
                         <tr>
                             <td><?=$no+1?></td>
-                            <td><?php echo "D".$donor['id_donor'].date("dmYHis", strtotime($donor['tgl_booking'])); ?></td>
+                            <td><?php echo "D".$donor['id_donor']."-".date("dmYHis", strtotime($donor['tgl_booking'])); ?></td>
                             <td><?php echo $donor['nama_lengkap']; ?></td>
                             <td><?php echo tanggal_indo($donor['tgl_booking']); ?></td>
                             <td><?php echo tanggal_indo($donor['tgl_donor'])." ".substr($donor['tgl_donor'], 10); ?></td>

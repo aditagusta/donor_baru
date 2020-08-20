@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    require_once "config.php";
+    require_once "functions.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +18,7 @@
 
 <body>
 
-    <?php include("menu_adminatas.php"); ?>
+    <?php include("menu_navigasi_atas.php"); ?>
     <div class="container" style='margin-top:70px'>
         <div class="row">
             <div class="col-sm-3">
