@@ -1,43 +1,33 @@
 <?php
-session_start();
-include("config.php");
- if(!isset($_SESSION['usertype']))
- {
-	 header("location:admin.php");
- }
+    session_start();
+    require_once "config.php";
+    require_once "functions.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-			<?php include("admin_head.php");?>
+		<?php include("head.php");?>
 	</head>
 	<body>
 
-<?php include("admin_navigasiatas.php"); ?>
+<?php include("menu_navigasi_atas.php"); ?>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-3">
-			<?php include("admin_navigasi.php");?>
+			<?php include("menu_admin.php");?>
 		</div>
 		<div class="col-sm-9" >
-			<h3><i class="fa fa-envelope"></i> Pesan <a href="admin_hapus_pesan.php?id=<?php echo $_GET['id']; ?>" class="btn-sm pull-right">Hapus Pesan</a></h3>  	  <hr>  
-	<?php 
-				$sql="UPDATE pesan SET STATUS=0 WHERE ID=$_GET[id]";
-				$result=$con->query($sql);
-				$sql="SELECT * FROM pesan  WHERE ID=$_GET[id]";
-				$result=$con->query($sql);
-				if($result->num_rows>0)
-				{
-					if($row=$result->fetch_assoc())
-					{
-						echo "<h4>".$row['NAMA']." <small>".$row['EMAIL']."</small></h4>";
-						echo "<p>".$row['PESAN']."</p>";echo"<b>Kontak ".$row['KONTAK']."</b>";
-						echo"<p class='text-info pull-right'>Pesan Masuk Pada ".$row['WAKTU']."</p>";
-						
-					}
-				}
+			<h3><i class="fa fa-envelope"></i> Pesan <hr>  
+		<?php
+			// set pesan ke sudah lihat
+			$con->update("tb_pesan", array("status" => 1), array("id_pesan" => $_GET['id']));
+			$data_pesan = $con->get("tb_pesan", "*", array("id_pesan" => $_GET['id']));
+			echo "<h4>".$data_pesan['nama']." <small>".$data_pesan['email'].", ".$data_pesan['kontak']."</small></h4>";
+			echo "<p>Pesan Masuk Pada ".tanggal_indo($data_pesan['tgl_pesan']).substr($data_pesan['tgl_pesan'], 10)."</p>";
+			echo "<p>Isi Pesan : <br> ".$data_pesan['pesan']."</p>";
 			?>
-		
+			<a href="admin_pesan.php" class="btn-sm btn-primary"><i class="fa fa-server"></i> Kembali</a></h3>
+				<a href="admin_hapus_pesan.php?id=<?php echo $_GET['id']; ?>" class="btn-sm btn-primary"><i class="fa fa-trash"></i> Hapus Pesan</a></h3>
 		</div>
 	</div>
 </div>

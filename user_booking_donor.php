@@ -35,16 +35,16 @@
 <html lang="en">
 
 <head>
-    <?php include("admin_head.php"); ?>
+    <?php include("head.php"); ?>
 </head>
 
 <body>
 
-    <?php include("user_navigasiatas.php"); ?>
+    <?php include("menu_navigasi_atas.php"); ?>
     <div class="container" style='margin-top:70px;'>
         <div class="row">
             <div class="col-sm-2 col-xs-12">
-                <?php include("user_navigasi.php"); ?>
+                <?php include("menu_pendonor.php"); ?>
             </div>
             <div class="col-sm-10 col-xs-12">
                 <h3 class="text-primary"><i class="fa fa-envelope"></i> Booking Jadwal Donor </h3>

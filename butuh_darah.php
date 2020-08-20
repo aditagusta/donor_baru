@@ -9,7 +9,7 @@
    
    
 <?php
-include("navigasi_atas.php");
+include("menu_navigasi_atas.php");
 ?>
     <div class="container"  style='margin-top:70px;'>
         <div class="row">

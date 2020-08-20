@@ -1,21 +1,21 @@
+<?php
+    session_start();
+    require_once "config.php";
+    require_once "functions.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php
-    include 'config.php';
-    include("admin_head.php");
-    ?>
-
+    <?php include("head.php"); ?>
 </head>
 
 <body>
-
-    <?php include("admin_navigasiatas.php"); ?>
+    <?php include("menu_navigasi_atas.php"); ?>
     <div class="container" style='margin-top:70px'>
         <div class="row">
             <div class="col-sm-3">
-                <?php include("admin_navigasi.php"); ?>
+                <?php include("menu_admin.php"); ?>
             </div>
             <div class="col-sm-9">
                 <h3 class="text-primary"><i class="fa fa-search"></i> Data Darah </h3>

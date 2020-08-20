@@ -7,16 +7,16 @@
 <html lang="en">
 
 <head>
-    <?php include("admin_head.php"); ?>
+    <?php include("head.php"); ?>
 </head>
 
 <body>
 
-    <?php include("user_navigasiatas.php"); ?>
+    <?php include("menu_navigasi_atas.php"); ?>
     <div class="container" style='margin-top:70px;'>
         <div class="row">
             <div class="col-sm-2 col-xs-12">
-                <?php include("user_navigasi.php"); ?>
+                <?php include("menu_pendonor.php"); ?>
             </div>
             <div class="col-sm-10 col-xs-12">
                 <h3 class="text-primary"><i class="fa fa-envelope"></i> History Donor Darah Anda </h3>
@@ -48,7 +48,7 @@
                     ?>
                         <tr>
                             <td><?=$no+1?></td>
-                            <td><?php echo "D".$donor['id_donor'].date("dmYHis", strtotime($donor['tgl_booking'])); ?></td>
+                            <td><?php echo "D".$donor['id_donor']."-".date("dmYHis", strtotime($donor['tgl_booking'])); ?></td>
                             <td><?php echo $donor['nama_lengkap']; ?></td>
                             <td><?php echo tanggal_indo($donor['tgl_booking']); ?></td>
                             <td><?php echo tanggal_indo($donor['tgl_donor'])." ".substr($donor['tgl_donor'], 10); ?></td>
