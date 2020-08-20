@@ -6,18 +6,18 @@
     include 'config.php';
     $id = $_GET['id'];
     $data = $con->get('tb_darah', '*', ['id_darah' => $id]);
-    include("admin_head.php");
+    include("head.php");
     ?>
 
 </head>
 
 <body>
 
-    <?php include("admin_navigasiatas.php"); ?>
+    <?php include("menu_adminatas.php"); ?>
     <div class="container" style='margin-top:70px'>
         <div class="row">
             <div class="col-sm-3">
-                <?php include("admin_navigasi.php"); ?>
+                <?php include("menu_admin.php"); ?>
             </div>
             <div class="col-sm-9">
                 <h3 class="text-primary"><i class="fa fa-plus"></i>Tambah Data Darah </h3>

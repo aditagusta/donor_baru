@@ -11,5 +11,5 @@ $con = new Medoo([
 	'database_name' => 'db_donor_baru',
 	'server' => 'localhost',
 	'username' => 'root',
-	'password' => ''
+	'password' => 'mysql'
 ]);

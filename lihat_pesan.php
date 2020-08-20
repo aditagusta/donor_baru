@@ -9,15 +9,15 @@ include("config.php");
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-			<?php include("admin_head.php");?>
+			<?php include("head.php");?>
 	</head>
 	<body>
 
-<?php include("admin_navigasiatas.php"); ?>
+<?php include("menu_adminatas.php"); ?>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-3">
-			<?php include("admin_navigasi.php");?>
+			<?php include("menu_admin.php");?>
 		</div>
 		<div class="col-sm-9" >
 			<h3><i class="fa fa-envelope"></i> Pesan <a href="admin_hapus_pesan.php?id=<?php echo $_GET['id']; ?>" class="btn-sm pull-right">Hapus Pesan</a></h3>  	  <hr>  

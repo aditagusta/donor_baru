@@ -13,7 +13,7 @@ include("config.php");
 
 <body>
 
-	<?php include("navigasi_atas.php"); ?>
+	<?php include("menu_navigasi_atas.php"); ?>
 
 	<!-- Navigation -->
 

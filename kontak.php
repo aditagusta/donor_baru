@@ -6,7 +6,7 @@
 <body>
 
     <?php
-    include "navigasi_atas.php";
+    include "menu_navigasi_atas.php";
     ?>
 
     <!-- Page Content -->

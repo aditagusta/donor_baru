@@ -20,7 +20,7 @@ From
 <html lang="en">
 
 <head>
-    <?php include("admin_head.php"); ?>
+    <?php include("head.php"); ?>
 </head>
 
 <body>

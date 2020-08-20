@@ -4,18 +4,18 @@
 <head>
     <?php
     include 'config.php';
-    include("admin_head.php");
+    include("head.php");
     ?>
 
 </head>
 
 <body>
 
-    <?php include("admin_navigasiatas.php"); ?>
+    <?php include("menu_adminatas.php"); ?>
     <div class="container" style='margin-top:70px'>
         <div class="row">
             <div class="col-sm-3">
-                <?php include("admin_navigasi.php"); ?>
+                <?php include("menu_admin.php"); ?>
             </div>
             <h3 class="text-primary text-center"> Detail Pendonor Darah </h3>
             <hr>

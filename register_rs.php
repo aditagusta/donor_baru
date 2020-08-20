@@ -1,12 +1,41 @@
+<?php
+    session_start();
+    require_once "config.php";
+    require_once "functions.php";
+    if (isset($_POST['simpan'])) {
+        $sql = $con->insert("tb_rs", [
+            "username" => $_POST['username'],
+            "password" => $_POST['password'],
+            "nama_rs" => $_POST['nama_rs'],
+            "lokasi" => $_POST['lokasi'],
+            "kontak" => $_POST['kontak']
+        ]);
+        if ($sql == TRUE) {
+            echo "
+        <script>
+        alert('Data Rumah Sakit Berhasil disimpan !!!')
+        window.location.href='index.php'
+        </script>
+        ";
+        } else {
+            echo "
+        <script>
+        alert('Data Rumah Sakit Gagal disimpan !!!')
+        window.location.href='register_rs.php'
+        </script>
+        ";
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php include 'admin_head.php' ?>
+    <?php include 'head.php' ?>
 </head>
 
 <body>
-    <?php include 'navigasi_atas.php'; ?>
+    <?php include 'menu_navigasi_atas.php'; ?>
     <div class="row centered-form ">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
             <div class="panel panel-primary">
@@ -38,32 +67,6 @@
                         </div>
                         <button name="simpan" class="btn btn-primary" type="submit">Simpan Data</button>
                     </form>
-                    <?php
-                    if (isset($_POST['simpan'])) {
-                        $sql = $con->insert("tb_rs", [
-                            "username" => $_POST['username'],
-                            "password" => $_POST['password'],
-                            "nama_rs" => $_POST['nama_rs'],
-                            "lokasi" => $_POST['lokasi'],
-                            "kontak" => $_POST['kontak']
-                        ]);
-                        if ($sql == TRUE) {
-                            echo "
-                        <script>
-                        alert('Data Rumah Sakit Berhasil disimpan !!!')
-                        window.location.href='index.php'
-                        </script>
-                        ";
-                        } else {
-                            echo "
-                        <script>
-                        alert('Data Rumah Sakit Gagal disimpan !!!')
-                        window.location.href='register_rs.php'
-                        </script>
-                        ";
-                        }
-                    }
-                    ?>
                 </div>
             </div>
         </div>

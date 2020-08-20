@@ -1,7 +1,3 @@
-<?php
-include 'config.php';
-?>
-
 <h3 class="text-primary"><i class="glyphicon glyphicon-dashboard"></i> Beranda</h3>
 <hr>
 
