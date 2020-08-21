@@ -149,7 +149,7 @@
                                     <br>
                                     <br>
                                 <?php endif; ?>
-                                <a href="admin_lihat_donor.php?id_permintaan=<?=$permintaan['id_permintaan']?>" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Detail Permintaan</a>
+                                <a href="admin_detail_permintaan_darah.php?id_permintaan=<?=$permintaan['id_permintaan']?>" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Detail Permintaan</a>
                             </td>
                         </tr>
                     <?php

@@ -103,11 +103,20 @@
                         </div>
                     </div>
                     <div class="col-xs-12">
-                        <button type="submit" class="btn bt-sm btn-primary btn-block">Tampilkan Laporan</button>
+                        <button type="submit" class="btn btn-sm btn-primary btn-block">Tampilkan Laporan</button>
+                        <br>
+                    </form>
+                    
+                        <form action="admin_cetak_darah_laporan.php" method="GET">
+                            <input type="hidden" name="status" value="<?=$status?>" />
+                            <input type="hidden" name="id_darah" value="<?=$id_darah?>" />
+                            <input type="hidden" name="tgl_awal" value="<?=$tgl_awal?>" class="form-control" />
+                            <input type="hidden" name="tgl_akhir" value="<?=$tgl_akhir?>" class="form-control" />
+                            <button type="submit" class="btn btn-sm btn-success btn-block">Cetak Laporan</button>
+                        </form>
                         <br>
                         <br>
                     </div>
-                </form>
                 <table class="table table-striped table-bordered" id="datatable">
                     <tr>
                         <th>No</th>

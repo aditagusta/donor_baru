@@ -17,7 +17,7 @@
     <div class="container" style='margin-top:70px;'>
         <div class="row">
             <div class="col-sm-3 col-xs-12">
-                <?php include("menu_rumah_sakit.php"); ?>
+                <?php include("menu_admin.php"); ?>
             </div>
             <div class="col-sm-9 col-xs-12">
                 <h3 class="text-primary"><i class="fa fa-envelope"></i> Detail Permintaan Darah </h3>
