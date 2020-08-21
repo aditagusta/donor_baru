@@ -56,9 +56,8 @@
             </div>
 
             <div class="col-sm-9 col-xs-12">
-                <h3 class="text-primary"><i class="fa fa-envelope"></i> Data Permintaan Darah </h3>
+                <h3 class="text-primary"><i class="fa fa-envelope"></i> Laporan Permintaan Darah </h3>
                 <hr>
-
                 <form method="GET">
                     <div class="col-sm-3 col-xs-12">
                         <div class="form-group">
@@ -108,13 +107,11 @@
                         </div>
                     </div>
                     <div class="col-xs-12">
-                        <button type="submit" class="btn bt-sm btn-primary btn-block">Filter</button>
+                        <button type="submit" class="btn bt-sm btn-primary btn-block">Tampilkan Laporan</button>
                         <br>
                         <br>
                     </div>
                 </form>
-                <br>
-                <br>
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th>No</th>
@@ -126,7 +123,6 @@
                         <th>Darah</th>
                         <th>Status</th>
                         <th>Keterangan</th>
-                        <th>Aksi</th>
                     </tr>
 
                     <?php
@@ -143,9 +139,6 @@
                             <td><?php echo $permintaan['nama_darah']; ?></td>
                             <td><?php echo $permintaan['status']; ?></td>
                             <td><?php echo $permintaan['keterangan']; ?></td>
-                            <td>
-                                <a href="admin_lihat_donor.php?id_permintaan=<?=$permintaan['id_permintaan']?>" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Detail Permintaan</a>
-                            </td>
                         </tr>
                     <?php
                         }
