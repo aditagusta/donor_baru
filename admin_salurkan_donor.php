@@ -92,6 +92,7 @@ From
                                 document.getElementsByName("id_darah")[0].value = "<?=$donor['id_darah']?>";
                             </script>
                         </select>
+                    </div>
                     <div class="form-group">
                         <label>Tanggal Disalurkan</label>
                         <input type="date" value="<?=date("Y-m-d")?>" class="form-control" name="tgl_catatan" />
