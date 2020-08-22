@@ -1,4 +1,6 @@
-<?php include "config.php"; ?>
+<?php
+    include "config.php";
+1?>
 <!DOCTYPE html>
 <html lang="en">
 <?php include "head.php"; ?>
@@ -15,18 +17,22 @@
         <div class="row">
             <div class="col-md-8">
                 <?php
-                if (isset($_POST["submit"])) {
-                    $sql = "INSERT INTO pesan (NAMA, KONTAK, EMAIL, PESAN, STATUS,WAKTU) VALUES ('{$_POST["name"]}', '{$_POST["phone"]}', '{$_POST["email"]}', '{$_POST["message"]}', 0,NOW());";
-                    if ($con->query($sql)) {
+                if (isset($_POST["submit"]))
+                {
+                    $con->insert("tb_pesan", array(
+                        "nama" => $_POST["name"],
+                        "kontak" => $_POST["phone"],
+                        "email" => $_POST["email"],
+                        "pesan" => $_POST["message"],
+                        "status" => 0,
+                        "tgl_pesan" => date("Y-m-d H:i:s")
+                    ));
                         echo '
 					<div class="alert alert-success">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						<strong>Sukses!</strong> Pesan Berhasil Dikirimkan.
-					</div>
-					
-					
-					';
-                    }
+					</div>';
+                    
                 }
                 ?>
 

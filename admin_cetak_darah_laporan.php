@@ -2,6 +2,7 @@
     session_start();
     require_once "config.php";
     require_once "functions.php";
+
     $tgl_awal = date("Y-m-01");
     $tgl_akhir = date("Y-m-t");
     $id_darah = null;
@@ -43,6 +44,7 @@
             From
                 tb_donor Left Join
                 tb_darah On tb_donor.id_darah = tb_darah.id_darah WHERE tb_donor.tgl_donor >= DATE('".$tgl_awal."') AND tb_donor.tgl_donor <= DATE('".$tgl_akhir."') ".$sql_tambahan)->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,3 +93,4 @@
 </body>
 
 </html>
+
