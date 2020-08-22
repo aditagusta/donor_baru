@@ -71,6 +71,7 @@
             </div>
         </div>
     </div>
+    <?php include "registrasi_pendonor.php"; ?>
     <?php include("footer.php"); ?>
 </body>
 
