@@ -136,16 +136,11 @@
                             <td><?php echo $donor['keterangan']; ?></td>
                             <td>
                                 <?php if($donor['status'] == "Belum Diproses"): ?>
-                                    <a href="admin_proses_donor.php?id_donor=<?=$donor['id_donor']?>" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Proses Donor</a>
+                                    <a href="admin_proses_pendonor.php?id_donor=<?=$donor['id_donor']?>" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Proses Donor</a>
                                     <br>
                                     <br>
                                 <?php endif; ?>
 
-                                <?php if($donor['status'] == "Sudah Diproses"): ?>
-                                    <a href="admin_salurkan_donor.php?id_donor=<?=$donor['id_donor']?>" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Salurkan Darah Pendonor</a>
-                                    <br>
-                                    <br>
-                                <?php endif; ?>
                                 <a href="admin_lihat_donor.php?id_donor=<?=$donor['id_donor']?>" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Detail Donor</a>
                             </td>
                         </tr>
@@ -155,6 +150,7 @@
                 </table>
             </div>
             </div>
+        </div>
 
 			<?php include("admin_footer.php"); ?>
 

@@ -65,7 +65,7 @@
                 {
                     $con->insert("tb_user", [
                         "username" => $_POST['username'],
-                        "password" => $_POST['password'],
+                        "password" => md5($_POST['password']),
                         "nama_lengkap" => $_POST['nama_lengkap'],
                         "jenis_kelamin" => $_POST['jenis_kelamin'],
                         "email" => $_POST['email'],

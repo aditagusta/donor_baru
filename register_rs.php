@@ -5,7 +5,7 @@
     if (isset($_POST['simpan'])) {
         $sql = $con->insert("tb_rs", [
             "username" => $_POST['username'],
-            "password" => $_POST['password'],
+            "password" => md5($_POST['password']),
             "nama_rs" => $_POST['nama_rs'],
             "lokasi" => $_POST['lokasi'],
             "kontak" => $_POST['kontak']
