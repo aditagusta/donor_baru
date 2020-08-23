@@ -10,10 +10,11 @@ else
 	$mes = "";
 }
 ?>
-<h3 class="text-primary"><i class="glyphicon glyphicon-dashboard"></i> Beranda</h3>
+<h3 class="text-primary"><i class="glyphicon glyphicon-dashboard"></i> Menu</h3>
 <hr>
 
 <ul class="nav nav-stacked">
+	<li><a href="admin_beranda.php"><i class="fa fa-home"></i> Beranda</a></li>
 	<li><a href="admin_pesan.php"><i class="fa fa-envelope"></i> Pesan Masuk <?php echo $mes; ?></a></li>
 	<li><a href="admin_darah.php"><i class="fa fa-search"></i> Data Darah</a></li>
 	<li><a href="admin_permintaan.php"><i class="fa fa-users text-success"></i> Permintaan Darah</a></li>
