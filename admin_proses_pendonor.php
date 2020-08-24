@@ -39,18 +39,19 @@
 
                 // Content
                 $mail->isHTML(true);
-                $mail->Subject = '<b>Selamat, Anda sudah berhasil melakukan donor darah di UDD PMI Kota Padang</b>';
-                $mail->Body    = "Berikut adalah detail donor darah Anda :";
-                $mail->Body   .= "No. Donor : D".$data_donor['id_donor']."-".date("dmYHis", strtotime($data_donor['tgl_booking']));
-                $mail->Body   .= "Nama Lengkap : ".$data_donor['nama_lengkap'];
-                $mail->Body   .= "Nama Orang Tua : ".$data_donor['nama_ortu'];
-                $mail->Body   .= "Jenis Kelamin : ".$data_donor['jenis_kelamin'];
-                $mail->Body   .= "Tanggal Lahir : ".tanggal_indo($data_donor['tgl_lahir']);
-                $mail->Body   .= "Golongan Darah : ".$data_donor['nama_darah'];
-                $mail->Body   .= "Berat Badan : ".$data_donor['berat_badan']." Kg";
-                $mail->Body   .= "Alamat : ".$data_donor['alamat'];
-                $mail->Body   .= "Nohp : ".$data_donor['nohp'];
-                $mail->Body   .= "_______________________________________________________";
+                $mail->Subject = 'Pembaruan status donor darah Anda';
+                $mail->Body    = "<b>Selamat, Anda sudah berhasil melakukan donor darah di UDD PMI Kota Padang</b> <br>";
+                $mail->Body   .= "Berikut adalah detail donor darah Anda : <br>";
+                $mail->Body   .= "No. Donor : D".$data_donor['id_donor']."-".date("dmYHis", strtotime($data_donor['tgl_booking']))." <br>";
+                $mail->Body   .= "Nama Lengkap : ".$data_donor['nama_lengkap']." <br>";
+                $mail->Body   .= "Nama Orang Tua : ".$data_donor['nama_ortu']." <br>";
+                $mail->Body   .= "Jenis Kelamin : ".$data_donor['jenis_kelamin']." <br>";
+                $mail->Body   .= "Tanggal Lahir : ".tanggal_indo($data_donor['tgl_lahir'])." <br>";
+                $mail->Body   .= "Golongan Darah : ".$data_donor['nama_darah']." <br>";
+                $mail->Body   .= "Berat Badan : ".$data_donor['berat_badan']." Kg <br>";
+                $mail->Body   .= "Alamat : ".$data_donor['alamat']." <br>";
+                $mail->Body   .= "Nohp : ".$data_donor['nohp']." <br>";
+                $mail->Body   .= "_______________________________________________________ <br>";
                 $mail->Body   .= "<br> <br> <br>";
                 $mail->Body   .= "<b>*Kami akan mengirimkan email kepada Anda jika darah yang Anda donorkan sudah disalurkan kepada yang membutuhkan.</b>";
 
