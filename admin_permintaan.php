@@ -145,7 +145,7 @@
                             <td><?php echo $permintaan['keterangan']; ?></td>
                             <td>
                                 <?php if($permintaan['status'] == "Belum Diproses"): ?>
-                                    <a href="admin_proses_pendonor.php?id_permintaan=<?=$permintaan['id_permintaan']?>" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Cari Pendonor</a>
+                                    <a href="admin_permintaan_cari_pendonor.php?id_permintaan=<?=$permintaan['id_permintaan']?>" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Cari Pendonor</a>
                                     <br>
                                     <br>
                                 <?php endif; ?>

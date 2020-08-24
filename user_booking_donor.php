@@ -122,9 +122,7 @@
                         <div class="col-xs-12">
                             <div class="form-group">
                                 <label>Alamat</label>
-                                <textarea class="form-control" name="alamat">
-                                    
-                                </textarea>
+                                <textarea class="form-control" name="alamat"></textarea>
                             </div>
                         </div>
                         <div class="col-xs-12">

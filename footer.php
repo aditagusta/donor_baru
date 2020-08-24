@@ -11,6 +11,7 @@
 			changeYear: true,
 			yearRange: '1900:' + new Date().getFullYear()
 			 }).val();
+		    $('.select-dua').select2();
 	});
 		
 </script>

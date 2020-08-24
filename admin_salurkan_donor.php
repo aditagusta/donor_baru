@@ -47,13 +47,10 @@ From
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include 'head.php';?>
 </head>
-
 <body>
-
     <?php include("menu_navigasi_atas.php"); ?>
     <div class="container" style='margin-top:70px'>
         <div class="row">
@@ -61,9 +58,9 @@ From
                 <?php include("menu_admin.php"); ?>
             </div>
             <div class="col-sm-9 col-xs-12">
-            <h3 class="text-primary"><i class="fa fa-envelope"></i> Apakah Anda yakin ingin memproses pendonor ini?</h3>
-            <hr>
-            <div class="col-xs-12">
+                <div class="col-xs-12">
+                <h3 class="text-primary"><i class="fa fa-envelope"></i> Apakah Anda yakin ingin memproses pendonor ini?</h3>
+                <hr>
                 <div class="text-right" style="margin-bottom: 7px;">
                     <a href="admin_donor.php" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Kembali</a>
                 </div>
@@ -84,7 +81,7 @@ From
                                 foreach ($data_permintaan as $darah)
                                 {
                             ?>
-                                    <option value="<?=$darah['id_permintaan']?>"><?php echo "P".$darah['id_permintaan']."-".date("dmYHis", strtotime($darah['tgl_permintaan'])); ?> - <?=$darah['nama_pasien']?> - <?=$darah['nama_rs']?></option>
+                                    <option value="<?=$darah['id_permintaan']?>"><?php echo "P".$darah['id_permintaan']."-".date("dmYHis", strtotime($darah['tgl_permintaan'])); ?> - <?=$darah['nama_pasien']?> - Gol. Darah (<?=$darah['nama_darah']?>) - <?=$darah['nama_rs']?></option>
                             <?php
                                 }
                             ?>
@@ -97,74 +94,77 @@ From
                         <label>Tanggal Disalurkan</label>
                         <input type="date" value="<?=date("Y-m-d")?>" class="form-control" name="tgl_catatan" />
                     </div>
+                    <div class="form-group">
                         <br>
                         <button type="submit" class="btn btn-sm btn-primary">Proses Penyaluran Darah Pendonor</button>
                     </div>
                 </form>
                 <br>
                 <br>
-                <h4>Detail Pendonor</h4>
-                <img src="images/<?=$donor['foto']?>" width="250" />
-                <table class="table table-striped table-bordered">
-                    <tr>
-                        <th>No Donor</th>
-                        <td><?="D".$donor['id_donor']."-".date("dmYHis", strtotime($donor['tgl_booking']))?></td>
-                    </tr>
-                    <tr>
-                        <th>Nama Pendonor</th>
-                        <td><?=$donor['nama_lengkap']?></td>
-                    </tr>
-                    <tr>
-                        <th>Golongan Darah</th>
-                        <td><?=$donor['nama_darah']?></td>
-                    </tr>
-                    <tr>
-                        <th>Tanggal Booking</th>
-                        <td><?=tanggal_indo($donor['tgl_booking'])." ".substr($donor['tgl_booking'], 10)?></td>
-                    </tr>
-                    <tr>
-                        <th>Tanggal Melakukan Donor</th>
-                        <td><?=tanggal_indo($donor['tgl_donor'])." ".substr($donor['tgl_donor'], 10)?></td>
-                    </tr>
-                    <tr>
-                        <th>Status Booking</th>
-                        <td><?=$donor['status']?></td>
-                    </tr>
-                    <tr>
-                        <th>Nama Orang Tua Pendonor</th>
-                        <td><?=$donor['nama_ortu']?></td>
-                    </tr>
-                    <tr>
-                        <th>Jenis Kelamin</th>
-                        <td><?=$donor['jenis_kelamin']?></td>
-                    </tr>
-                    <tr>
-                        <th>Tanggal Lahir</th>
-                        <td><?=tanggal_indo($donor['tgl_lahir'])?></td>
-                    </tr>
-                    <tr>
-                        <th>Berat Badan</th>
-                        <td><?=$donor['berat_badan']?> Kg</td>
-                    </tr>
-                    <tr>
-                        <th>Alamat</th>
-                        <td><?=$donor['alamat']?></td>
-                    </tr>
-                    <tr>
-                        <th>Nohp</th>
-                        <td><?=$donor['nohp']?></td>
-                    </tr>
-                    <tr>
-                        <th>Keterangan</th>
-                        <td><?=$donor['keterangan']?></td>
-                    </tr>
-                </table>
-            </div>
+                    <h4>Detail Pendonor</h4>
+                    <img src="images/<?=$donor['foto']?>" width="250" />
+                    <br>
+                    <br>
+                    <br>
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th>No Donor</th>
+                            <td><?="D".$donor['id_donor']."-".date("dmYHis", strtotime($donor['tgl_booking']))?></td>
+                        </tr>
+                        <tr>
+                            <th>Nama Pendonor</th>
+                            <td><?=$donor['nama_lengkap']?></td>
+                        </tr>
+                        <tr>
+                            <th>Golongan Darah</th>
+                            <td><?=$donor['nama_darah']?></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Booking</th>
+                            <td><?=tanggal_indo($donor['tgl_booking'])." ".substr($donor['tgl_booking'], 10)?></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Melakukan Donor</th>
+                            <td><?=tanggal_indo($donor['tgl_donor'])." ".substr($donor['tgl_donor'], 10)?></td>
+                        </tr>
+                        <tr>
+                            <th>Status Booking</th>
+                            <td><?=$donor['status']?></td>
+                        </tr>
+                        <tr>
+                            <th>Nama Orang Tua Pendonor</th>
+                            <td><?=$donor['nama_ortu']?></td>
+                        </tr>
+                        <tr>
+                            <th>Jenis Kelamin</th>
+                            <td><?=$donor['jenis_kelamin']?></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Lahir</th>
+                            <td><?=tanggal_indo($donor['tgl_lahir'])?></td>
+                        </tr>
+                        <tr>
+                            <th>Berat Badan</th>
+                            <td><?=$donor['berat_badan']?> Kg</td>
+                        </tr>
+                        <tr>
+                            <th>Alamat</th>
+                            <td><?=$donor['alamat']?></td>
+                        </tr>
+                        <tr>
+                            <th>Nohp</th>
+                            <td><?=$donor['nohp']?></td>
+                        </tr>
+                        <tr>
+                            <th>Keterangan</th>
+                            <td><?=$donor['keterangan']?></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-        <?php include("admin_footer.php"); ?>
-
-
+    </div>
+    <?php include("admin_footer.php"); ?>
 </body>
 
 </html>
