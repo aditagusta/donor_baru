@@ -14,7 +14,60 @@
             "jumlah" => 1,
             "tgl_catatan" => $_POST['tgl_catatan'],
         ));
-        alertRedirect("Pendonor berhasil diproses", "admin_donor.php");
+
+        // KIRIM NOTIFIKASI KE PENDONOR KALAU DONOR SUDAH DIPROSES
+        if(!$_DEBUG)
+        {
+            $mail = new PHPMailer(true);
+
+            $data_donor = $con->query("Select
+                            tb_donor.*,
+                            IFNULL(tb_darah.nama_darah, 'Belum Diketahui') AS nama_darah,
+                            tb_rs.nama_rs,
+                            tb_rs.lokasi,
+                            tb_rs.kontak
+                        From
+                            tb_donor Left Join
+                            tb_darah On tb_donor.id_darah = tb_darah.id_darah Left Join
+                            tb_rs On tb_donor.id_rs = tb_rs.id_rs WHERE tb_donor.id_donor = :id_donor", array("id_donor" => $_POST['id_donor']))->fetch(PDO::FETCH_ASSOC);
+
+            try
+            {
+                //Recipients
+                $mail->setFrom('noreply@uddpmikotapadang.org', 'UDD PMI Kota Padang');
+                $mail->addAddress($_SESSION['email'], $_SESSION['nama_lengkap']);
+
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = '<b>Selamat, Anda sudah berhasil melakukan donor darah di UDD PMI Kota Padang</b>';
+                $mail->Body    = "Berikut adalah detail donor darah Anda :";
+                $mail->Body   .= "No. Donor : D".$data_donor['id_donor']."-".date("dmYHis", strtotime($data_donor['tgl_booking']));
+                $mail->Body   .= "Nama Lengkap : ".$data_donor['nama_lengkap'];
+                $mail->Body   .= "Nama Orang Tua : ".$data_donor['nama_ortu'];
+                $mail->Body   .= "Jenis Kelamin : ".$data_donor['jenis_kelamin'];
+                $mail->Body   .= "Tanggal Lahir : ".tanggal_indo($data_donor['tgl_lahir']);
+                $mail->Body   .= "Golongan Darah : ".$data_donor['nama_darah'];
+                $mail->Body   .= "Berat Badan : ".$data_donor['berat_badan']." Kg";
+                $mail->Body   .= "Alamat : ".$data_donor['alamat'];
+                $mail->Body   .= "Nohp : ".$data_donor['nohp'];
+                $mail->Body   .= "_______________________________________________________";
+                $mail->Body   .= "<br> <br> <br>";
+                $mail->Body   .= "<b>*Kami akan mengirimkan email kepada Anda jika darah yang Anda donorkan sudah disalurkan kepada yang membutuhkan.</b>";
+
+
+                $mail->send();
+                alertRedirect("Pendonor berhasil diproses", "admin_donor.php");
+            }
+            catch (Exception $e)
+            {
+                alertRedirect("Pendonor berhasil diproses! Notifikasi gagal dikirim!", "admin_donor.php");
+
+            }
+        }
+        else
+        {
+            alertRedirect("Pendonor berhasil diproses", "admin_donor.php");        
+        }
     }
 
     $donor = $con->query("Select
