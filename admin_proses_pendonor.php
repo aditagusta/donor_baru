@@ -3,50 +3,30 @@
     require_once "functions.php";
     require_once "config.php";
 
-    $permintaan = $con->query("SELECT tb_permintaan.*, tb_darah.nama_darah FROM tb_permintaan INNER JOIN tb_darah ON tb_permintaan.id_darah = tb_darah.id_darah WHERE tb_permintaan.id_permintaan = :id_permintaan", array("id_permintaan" => $_GET['id_permintaan']))->fetch(PDO::FETCH_ASSOC);
-
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
-        $donor = $con->query("Select
-            tb_donor.*,
-            IFNULL(tb_darah.nama_darah, 'Belum Diketahui') AS nama_darah,
-            tb_rs.nama_rs,
-            tb_rs.lokasi,
-            tb_rs.kontak
-        From
-            tb_donor Left Join
-            tb_darah On tb_donor.id_darah = tb_darah.id_darah Left Join
-            tb_rs On tb_donor.id_rs = tb_rs.id_rs WHERE tb_donor.id_donor = :id_donor", array("id_donor" => $_POST['id_donor']))->fetch(PDO::FETCH_ASSOC);
+        $con->update("tb_donor", array("status" => "Sudah Diproses", "keterangan" => "Pendonor sudah melakukan donor", "id_darah" => $_POST['id_darah']), array("id_donor" => $_POST['id_donor']));
 
-        $keterangan_donor = "Darah pendonor sudah disalurkan ke pasien bernama ".$permintaan['nama_pasien'].", pasien rumah sakit ".$permintaan['nama_rs']." pada tanggal ".tanggal_indo($_POST['tgl_catatan'])." dengan kode permintaan P".$permintaan['id_permintaan']."-".date("dmYHis", strtotime($permintaan['tgl_permintaan']));
-
-        $keterangan_permintaan = "Darah sudah didapatkan dari pendonor bernama ".$donor['nama_lengkap']." jenis kelamin ".$donor['jenis_kelamin']." pada tanggal ".tanggal_indo($_POST['tgl_catatan'])." dengan kode donor D".$donor['id_donor']."-".date("dmYHis", strtotime($donor['tgl_booking']));
-
-        $con->update("tb_donor", array("status" => "Sudah Disalurkan", "keterangan" => $keterangan_donor, "tgl_diberikan" => $_POST['tgl_catatan'], "id_permintaan" => $_POST['id_permintaan']), array("id_donor" => $_POST['id_donor']));
-
-        $con->update("tb_permintaan", array("status" => "Sudah Diproses", "keterangan" => $keterangan_permintaan), array("id_permintaan" => $_POST['id_permintaan']));
-
-        $con->query("UPDATE tb_darah SET stok = stok - 1 WHERE id_darah = :id_darah",  array('id_darah' => $donor['id_darah']));
+        $con->query("UPDATE tb_darah SET stok = stok + 1 WHERE id_darah = :id_darah",  array('id_darah' => $_POST['id_darah']));
 
         $con->insert("tb_histori_darah", array(
-            "id_darah" => $donor['id_darah'],
-            "jumlah" => -1,
+            "id_darah" => $_POST['id_darah'],
+            "jumlah" => 1,
             "tgl_catatan" => $_POST['tgl_catatan'],
         ));
-
-        alertRedirect("Darah pendonor berhasil disalurkan!", "admin_permintaan.php");
+        alertRedirect("Pendonor berhasil diproses", "admin_donor.php");
     }
 
-    $data_donor = $con->query("Select
-        tb_donor.*,
-        IFNULL(tb_darah.nama_darah, 'Belum Diketahui') AS nama_darah,
-        tb_rs.nama_rs,
-        tb_rs.lokasi,
-        tb_rs.kontak
-    From
-        tb_donor Left Join
-        tb_darah On tb_donor.id_darah = tb_darah.id_darah Left Join
-        tb_rs On tb_donor.id_rs = tb_rs.id_rs WHERE tb_donor.status = 'Sudah Diproses' AND tb_donor.id_darah = :id_darah", array("id_darah" => $permintaan['id_darah']))->fetchAll(PDO::FETCH_ASSOC);
+    $donor = $con->query("Select
+    tb_donor.*,
+    IFNULL(tb_darah.nama_darah, 'Belum Diketahui') AS nama_darah,
+    tb_rs.nama_rs,
+    tb_rs.lokasi,
+    tb_rs.kontak
+From
+    tb_donor Left Join
+    tb_darah On tb_donor.id_darah = tb_darah.id_darah Left Join
+    tb_rs On tb_donor.id_rs = tb_rs.id_rs WHERE tb_donor.id_donor = :id_donor", array("id_donor" => $_GET['id_donor']))->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,76 +44,96 @@
                 <?php include("menu_admin.php"); ?>
             </div>
             <div class="col-sm-9 col-xs-12">
-            <h3 class="text-primary"><i class="fa fa-envelope"></i> Cari Pendonor</h3>
+            <h3 class="text-primary"><i class="fa fa-envelope"></i> Apakah Anda yakin ingin memproses pendonor ini?</h3>
             <hr>
             <div class="col-xs-12">
                 <div class="text-right" style="margin-bottom: 7px;">
-                    <a href="admin_permintaan.php" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Kembali</a>
+                    <a href="admin_donor.php" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Kembali</a>
                 </div>
                 <form action="" method="POST">
-                    <input type="hidden" name="id_permintaan" value="<?=$_GET['id_permintaan']?>" />
+                    <input type="hidden" name="id_donor" value="<?=$_GET['id_donor']?>" />
                     <div class="form-group">
-                        <label>Pilih Pendonor</label>
-                        <select name="id_donor" class="form-control">
+                        <label>Atur Golongan Darah Pendonor</label>
+                        <select name="id_darah" class="form-control">
+                            <option selected disabled>-- Pilih Golongan Darah --</option>
+                            <option value="0">Tidak Tahu</option>
                             <?php
-                                foreach ($data_donor as $donor)
+                                $data_darah = $con->select("tb_darah", "*");
+                                foreach ($data_darah as $darah)
                                 {
                             ?>
-                                    <option value="<?=$donor['id_donor']?>"><?php echo "D".$donor['id_donor']."-".date("dmYHis", strtotime($donor['tgl_booking'])); ?> - <?=$donor['nama_lengkap']?> - <?=$donor['jenis_kelamin']?></option>
+                                    <option value="<?=$darah['id_darah']?>"><?=$darah['nama_darah']?></option>
                             <?php
                                 }
                             ?>
+                            <script>
+                                document.getElementsByName("id_darah")[0].value = "<?=$donor['id_darah']?>";
+                            </script>
                         </select>
-                    </div>
                     <div class="form-group">
-                        <label>Tanggal Disalurkan</label>
+                        <label>Tanggal Melakukan Donor</label>
                         <input type="date" value="<?=date("Y-m-d")?>" class="form-control" name="tgl_catatan" />
                     </div>
-                    <br>
-                    <button type="submit" class="btn btn-sm btn-primary btn-block">Proses Pendonor</button>
-                    <br>
-                    <br>
-                    <br>
+                        <br>
+                        <button type="submit" class="btn btn-sm btn-primary">Proses Pendonor</button>
                     </div>
                 </form>
-                
-                <h4>Detail Pasien</h4>
+                <br>
+                <br>
+                <h4>Detail Pendonor</h4>
+                <img src="images/<?=$donor['foto']?>" width="250" />
                 <table class="table table-striped table-bordered">
                     <tr>
-                        <th>No Permintaan</th>
-                        <td><?php echo "P".$permintaan['id_permintaan']."-".date("dmYHis", strtotime($permintaan['tgl_permintaan'])); ?></td>
+                        <th>No Donor</th>
+                        <td><?="D".$donor['id_donor']."-".date("dmYHis", strtotime($donor['tgl_booking']))?></td>
                     </tr>
                     <tr>
-                        <th>Nama Pasien</th>
-                        <td><?=$permintaan['nama_pasien']?></td>
-                    </tr>
-                    <tr>
-                        <th>Jenis Kelamin</th>
-                        <td><?=$permintaan['jenis_kelamin']?></td>
-                    </tr>
-                    <tr>
-                        <th>Tanggal Lahir</th>
-                        <td><?=tanggal_indo($permintaan['tgl_lahir'])?></td>
+                        <th>Nama Pendonor</th>
+                        <td><?=$donor['nama_lengkap']?></td>
                     </tr>
                     <tr>
                         <th>Golongan Darah</th>
-                        <td><?=$permintaan['nama_darah']?></td>
+                        <td><?=$donor['nama_darah']?></td>
                     </tr>
                     <tr>
-                        <th>Tanggal</th>
-                        <td><?=tanggal_indo($permintaan['tgl_permintaan'])." ".substr($permintaan['tgl_permintaan'], 10)?></td>
+                        <th>Tanggal Booking</th>
+                        <td><?=tanggal_indo($donor['tgl_booking'])." ".substr($donor['tgl_booking'], 10)?></td>
                     </tr>
                     <tr>
-                        <th>Tanggal Butuh</th>
-                        <td><?=tanggal_indo($permintaan['tgl_butuh'])." ".substr($permintaan['tgl_butuh'], 10)?></td>
+                        <th>Tanggal Melakukan Donor</th>
+                        <td><?=tanggal_indo($donor['tgl_donor'])." ".substr($donor['tgl_donor'], 10)?></td>
                     </tr>
                     <tr>
-                        <th>Status Permintaan</th>
-                        <td><?=$permintaan['status']?></td>
+                        <th>Status Booking</th>
+                        <td><?=$donor['status']?></td>
+                    </tr>
+                    <tr>
+                        <th>Nama Orang Tua Pendonor</th>
+                        <td><?=$donor['nama_ortu']?></td>
+                    </tr>
+                    <tr>
+                        <th>Jenis Kelamin</th>
+                        <td><?=$donor['jenis_kelamin']?></td>
+                    </tr>
+                    <tr>
+                        <th>Tanggal Lahir</th>
+                        <td><?=tanggal_indo($donor['tgl_lahir'])?></td>
+                    </tr>
+                    <tr>
+                        <th>Berat Badan</th>
+                        <td><?=$donor['berat_badan']?> Kg</td>
+                    </tr>
+                    <tr>
+                        <th>Alamat</th>
+                        <td><?=$donor['alamat']?></td>
+                    </tr>
+                    <tr>
+                        <th>Nohp</th>
+                        <td><?=$donor['nohp']?></td>
                     </tr>
                     <tr>
                         <th>Keterangan</th>
-                        <td><?=$permintaan['keterangan']?></td>
+                        <td><?=$donor['keterangan']?></td>
                     </tr>
                 </table>
             </div>
