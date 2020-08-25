@@ -46,40 +46,33 @@
             // KIRIM DATA BOOKING KE EMAIL PENDONOR
             if(!$_DEBUG)
             {
-                $mail = new PHPMailer(true);
-
-                try
-                {
-                    //Recipients
-                    $mail->setFrom('noreply@uddpmikotapadang.org', 'UDD PMI Kota Padang');
-                    $mail->addAddress($_SESSION['email'], $_SESSION['nama_lengkap']);
-
-                    // Content
-                    $mail->isHTML(true);
-                    $mail->Subject = 'Detail Booking Jadwal';
-                    $mail->Body    = "Berikut adalah detail jadwal booking donor Anda : <br>";
-                    $mail->Body   .= "No. Donor : D".$data_donor['id_donor']."-".date("dmYHis", strtotime($data_donor['tgl_booking']))." <br>";
-                    $mail->Body   .= "Nama Lengkap : ".$_POST['nama_lengkap']." <br>";
-                    $mail->Body   .= "Nama Orang Tua : ".$_POST['nama_ortu']." <br>";
-                    $mail->Body   .= "Jenis Kelamin : ".$_POST['jenis_kelamin']." <br>";
-                    $mail->Body   .= "Tanggal Lahir : ".tanggal_indo($_POST['tgl_lahir'])." <br>";
-                    $mail->Body   .= "Golongan Darah : ".$data_donor['nama_darah']." <br>";
-                    $mail->Body   .= "Berat Badan : ".$_POST['berat_badan']." Kg <br>";
-                    $mail->Body   .= "Alamat : ".$_POST['alamat']." <br>";
-                    $mail->Body   .= "Nohp : ".$_POST['nohp']." <br>";
-                    $mail->Body   .= "_______________________________________________________ <br>";
-                    $mail->Body   .= "<br> <br> <br>";
-                    $mail->Body   .= "<b>*Silahkan tunjukkan email ini kepada petugas UDD PMI Kota Padang saat akan melakukan donor.</b> <br>";
-                    $mail->Body   .= "<b>*Kami akan mengirimkan email kepada Anda jika darah yang Anda donorkan sudah disalurkan kepada yang membutuhkan.</b>";
-
-
-                    $mail->send();
-                    alertRedirect("Booking jadwal berhasil dilakukan!", "user_history_booking.php");
-                }
-                catch (Exception $e)
-                {
-                    alertRedirect("Booking jadwal berhasil dilakukan! Notifikasi gagal dikirim!", "user_history_booking.php");
-                }
+            	$nama_pengirim = 'UDD PMI Kota Padang';
+            	$from = 'noreply@uddpmikotapadang.org';
+            	$to = $_SESSION['email'];
+            	$subject = 'Detail Booking Jadwal - UDD PMI Kota Padang';
+            	$message = "Berikut adalah detail jadwal booking donor Anda : <br>";
+				$message .= "No. Donor : D".$data_donor['id_donor']."-".date("dmYHis", strtotime($data_donor['tgl_booking']))." <br>";
+				$message .= "Nama Lengkap : ".$_POST['nama_lengkap']." <br>";
+				$message .= "Nama Orang Tua : ".$_POST['nama_ortu']." <br>";
+				$message .= "Jenis Kelamin : ".$_POST['jenis_kelamin']." <br>";
+				$message .= "Tanggal Lahir : ".tanggal_indo($_POST['tgl_lahir'])." <br>";
+				$message .= "Golongan Darah : ".$data_donor['nama_darah']." <br>";
+				$message .= "Berat Badan : ".$_POST['berat_badan']." Kg <br>";
+				$message .= "Alamat : ".$_POST['alamat']." <br>";
+				$message .= "Nohp : ".$_POST['nohp']." <br>";
+				$message .= "_______________________________________________________ <br>";
+				$message .= "<br> <br> <br>";
+				$message .= "<b>*Silahkan tunjukkan email ini kepada petugas UDD PMI Kota Padang saat akan melakukan donor.</b> <br>";
+				$message .= "<b>*Kami akan mengirimkan email kepada Anda jika darah yang Anda donorkan sudah disalurkan kepada yang membutuhkan.</b>";
+            	$kirim_notifikasi = kirimEmail($nama_pengirim, $from, $to, $subject, $message);
+                if($kirim_notifikasi['terkirim'])
+				{
+				    alertRedirect("Booking jadwal berhasil dilakukan!", "user_history_booking.php");
+				}
+				else
+				{
+					alertRedirect("Booking jadwal berhasil dilakukan! Notifikasi gagal dikirim! ".$kirim_notifikasi['error'], "user_history_booking.php");
+				}
             }
             else
             {

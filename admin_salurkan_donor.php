@@ -1,11 +1,19 @@
 <?php
+	ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     session_start();
     require_once "functions.php";
     require_once "config.php";
-
+    
+   
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    
     $donor = $con->query("Select
     tb_donor.*,
     IFNULL(tb_darah.nama_darah, 'Belum Diketahui') AS nama_darah,
+    tb_rs.id_rs,
     tb_rs.nama_rs,
     tb_rs.lokasi,
     tb_rs.kontak
@@ -28,7 +36,7 @@ From
         $keterangan_permintaan = "Darah sudah didapatkan dari pendonor bernama ".$donor['nama_lengkap']." jenis kelamin ".$donor['jenis_kelamin']." pada tanggal ".tanggal_indo($_POST['tgl_catatan'])." dengan kode donor D".$donor['id_donor']."-".date("dmYHis", strtotime($donor['tgl_booking']));
 
 
-        $con->update("tb_donor", array("status" => "Sudah Disalurkan", "keterangan" => $keterangan_donor, "tgl_diberikan" => $_POST['tgl_catatan'], "id_permintaan" => $_POST['id_permintaan']), array("id_donor" => $_POST['id_donor']));
+        $con->update("tb_donor", array("id_rs" => $donor['id_rs'], "status" => "Sudah Disalurkan", "keterangan" => $keterangan_donor, "tgl_diberikan" => $_POST['tgl_catatan'], "id_permintaan" => $_POST['id_permintaan']), array("id_donor" => $_POST['id_donor']));
 
         $con->update("tb_permintaan", array("status" => "Sudah Diproses", "keterangan" => $keterangan_permintaan), array("id_permintaan" => $_POST['id_permintaan']));
 
@@ -45,11 +53,16 @@ From
                                 IFNULL(tb_darah.nama_darah, 'Belum Diketahui') AS nama_darah,
                                 tb_rs.nama_rs,
                                 tb_rs.lokasi,
-                                tb_rs.kontak
+                                tb_rs.kontak,
+                                tb_user.email,
+                                tb_user.nama_lengkap 
                             From
                                 tb_donor Left Join
                                 tb_darah On tb_donor.id_darah = tb_darah.id_darah Left Join
-                                tb_rs On tb_donor.id_rs = tb_rs.id_rs WHERE tb_donor.id_donor = :id_donor", array("id_donor" => $id_donor))->fetch(PDO::FETCH_ASSOC);
+                                tb_rs On tb_donor.id_rs = tb_rs.id_rs Join 
+                                tb_user On tb_donor.id_user = tb_user.id_user 
+                                WHERE tb_donor.id_donor = :id_donor", array("id_donor" => $donor['id_donor']))->fetch(PDO::FETCH_ASSOC);
+        
 
         $permintaan = $con->query("Select tb_permintaan.*,
             tb_rs.*,
@@ -67,54 +80,48 @@ From
             // KIRIM DATA BOOKING KE EMAIL PENDONOR
             if(!$_DEBUG)
             {
-                $mail = new PHPMailer(true);
-
-                try
-                {
-                    //Recipients
-                    $mail->setFrom('noreply@uddpmikotapadang.org', 'UDD PMI Kota Padang');
-                    $mail->addAddress($_SESSION['email'], $_SESSION['nama_lengkap']);
-
-                    // Content
-                    $mail->isHTML(true);
-                    $mail->Subject = 'Pembaruan status donor darah Anda';
-                    $mail->Body    = "<b>Selamat, donor darah Anda sudah disalurkan ke salah satu pasien rumah sakit</b> <br>";
-                    $mail->Body   .= "Berikut adalah detail donor darah Anda <br> :";
-                    $mail->Body   .= "No. Donor : D".$data_donor['id_donor']."-".date("dmYHis", strtotime($data_donor['tgl_booking']))." <br>";
-                    $mail->Body   .= "Nama Lengkap : ".$data_donor['nama_lengkap']." <br>";
-                    $mail->Body   .= "Nama Orang Tua : ".$data_donor['nama_ortu']." <br>";
-                    $mail->Body   .= "Jenis Kelamin : ".$data_donor['jenis_kelamin']." <br>";
-                    $mail->Body   .= "Tanggal Lahir : ".tanggal_indo($data_donor['tgl_lahir'])." <br>";
-                    $mail->Body   .= "Golongan Darah : ".$data_donor['nama_darah']." <br>";
-                    $mail->Body   .= "Berat Badan : ".$data_donor['berat_badan']." Kg <br>";
-                    $mail->Body   .= "Alamat : ".$data_donor['alamat']." <br>";
-                    $mail->Body   .= "Nohp : ".$data_donor['nohp']." <br>";
-                    $mail->Body   .= "_______________________________________________________ <br>";
-                    $mail->Body   .= "<br> <br> <br>";
-
-                    $mail->Body   .= "Berikut adalah detail penerima donor darah Anda <br> :";
-                    $mail->Body   .= "No. Permintaan : P".$permintaan['id_permintaan']."-".date("dmYHis", strtotime($permintaan['tgl_permintaan']))." <br>";
-                    $mail->Body   .= "Rumah Sakit : ".$permintaan['nama_rs']." <br>";
-                    $mail->Body   .= "Nama Pasien : ".$permintaan['nama_pasien']." <br>";
-                    $mail->Body   .= "Tanggal Lahir : ".tanggal_indo($permintaan['tgl_lahir'])." <br>";
-                    $mail->Body   .= "Golongan Darah : ".$permintaan['nama_darah']." <br>";
-                    $mail->Body   .= "_______________________________________________________";
-                    $mail->Body   .= "<br> <br> <br>";
-
-
-                    $mail->send();
-                    alertRedirect("Darah pendonor berhasil disalurkan!", "admin_donor.php");
-                }
-                catch (Exception $e)
-                {
-                    alertRedirect("Darah pendonor berhasil disalurkan! Notifikasi gagal dikirim!", "admin_donor.php");
-                }
+            	$nama_pengirim = 'UDD PMI Kota Padang';
+	        	$from = 'noreply@uddpmikotapadang.org';
+	        	$to = $data_donor['email'];
+	        	$subject = 'Pembaruan status donor darah Anda - UDD PMI Kota Padang';
+	        	$message  = "<b>Selamat, donor darah Anda sudah disalurkan ke salah satu pasien rumah sakit</b> <br>";
+				$message .= "Berikut adalah detail donor darah Anda : <br> ";
+				$message .= "No. Donor : D".$data_donor['id_donor']."-".date("dmYHis", strtotime($data_donor['tgl_booking']))." <br>";
+				$message .= "Nama Lengkap : ".$data_donor['nama_lengkap']." <br>";
+				$message .= "Nama Orang Tua : ".$data_donor['nama_ortu']." <br>";
+				$message .= "Jenis Kelamin : ".$data_donor['jenis_kelamin']." <br>";
+				$message .= "Tanggal Lahir : ".tanggal_indo($data_donor['tgl_lahir'])." <br>";
+				$message .= "Golongan Darah : ".$data_donor['nama_darah']." <br>";
+				$message .= "Berat Badan : ".$data_donor['berat_badan']." Kg <br>";
+				$message .= "Alamat : ".$data_donor['alamat']." <br>";
+				$message .= "Nohp : ".$data_donor['nohp']." <br>";
+				$message .= "_______________________________________________________ <br>";
+				$message .= "<br> <br> <br>";
+				$message .= "Berikut adalah detail penerima donor darah Anda <br> :";
+				$message .= "No. Permintaan : P".$permintaan['id_permintaan']."-".date("dmYHis", strtotime($permintaan['tgl_permintaan']))." <br>";
+				$message .= "Rumah Sakit : ".$permintaan['nama_rs']." <br>";
+				$message .= "Nama Pasien : ".$permintaan['nama_pasien']." <br>";
+				$message .= "Tanggal Lahir : ".tanggal_indo($permintaan['tgl_lahir'])." <br>";
+				$message .= "Golongan Darah : ".$permintaan['nama_darah']." <br>";
+				$message .= "_______________________________________________________";
+				$message .= "<br> <br> <br>";
+	
+	        	$kirim_notifikasi = kirimEmail($nama_pengirim, $from, $to, $subject, $message);
+	            if($kirim_notifikasi['terkirim'])
+				{
+				    alertRedirect("Darah pendonor berhasil disalurkan!", "admin_donor.php");
+				}
+				else
+				{
+					alertRedirect("Darah pendonor berhasil disalurkan! Notifikasi gagal dikirim! ".$$kirim_notifikasi['error'], "admin_donor.php");
+				}
             }
             else
             {
                 alertRedirect("Darah pendonor berhasil disalurkan!", "admin_donor.php");
             }
             exit;
+        }
     }
 
     

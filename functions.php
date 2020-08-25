@@ -462,6 +462,40 @@ function alert($pesan)
         </script>";
 }
 	
+/*
+contoh pemakaian :
+$email = kirimEmail("Nama Pengirim", "dari@mail.com", "tujuan@mail.co", "Subjek email", "Isi email. bisa berupa HTML")
+if($email['terkirim'] == false)
+{
+    echo "error";
+    echo "Pesan error : ".$email['error'];
+}
+else
+{
+    echo "email terkirim";
+}
+*/
+function kirimEmail($nama_pengirim, $from, $to, $subject, $message)
+{
+	$hasil = array(
+		"terkirim" => false
+	);
+    try {
+        $headers = "From: $nama_pengirim <$from>" . "\r\n";
+        $headers .='Reply-To: '. $to . "\r\n" ;
+        $headers .='X-Mailer: PHP/' . phpversion();
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";   
+        
+        $hasil = ["terkirim" => true];
+
+        mail($to,$subject,$message, $headers);   
+    } catch (Exception $e) {
+      $hasil = array("terkirim" => false);
+      $hasil["error"] = $e->getMessage();
+    }
+    return $hasil;
+}
 
 
 ?>
