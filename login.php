@@ -25,23 +25,22 @@ if (isset($_POST['login']))
         $_SESSION['level'] = $level;
         if ($_SESSION['level'] == "admin")
         {
-            echo "<script>window.location='admin_beranda.php'</script>";
+        	alertRedirect("Anda Berhasil Login", "admin_beranda.php");
         }
         elseif($_SESSION['level'] == "user")
         {
-            echo "<script>window.location='user_history_booking.php'</script>";
+        	alertRedirect("Anda Berhasil Login", "user_history_booking.php");
         }
         else
         {
-            echo "<script>window.location='rumah_sakit_history_permintaan_darah.php'</script>";
+        	alertRedirect("Anda Berhasil Login", "rumah_sakit_history_permintaan_darah.php");
         }
     }
     else
     {
-        echo "<script>
-        alert('Login Gagal')
-        </script>";
+        alertRedirect("Username atau Password salah!", "index.php");
     }
+    exit;
 }
 ?>
 

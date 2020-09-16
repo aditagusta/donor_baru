@@ -71,7 +71,7 @@
                     </div>
                     <div class="panel-body">
                         <p>Pernahkah Anda membayangkan kerabat Anda atau teman dekat anda memerlukan darah dalam keadaan mendesak? , ketika rumah sakit mengatakan kehabisan stok, donor darah dalam keadaan mendesak tidak akan bisa terjadi, maka dari itu dengan adanya kami saat ini anda dapat mulai menabung kantong darah bagi mereka.</p>
-                        <a href="registrasi_donor.php" class="btn btn-primary">Lihat</a>
+                        <a href="registrasi_donor.php" class="btn btn-primary" style="visibility: hidden;">Lihat</a>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                     </div>
                     <div class="panel-body">
                         <p>Setiap 2 detik seseorang membutuhkan darah anda, Darah Anda membantu lebih dari satu kehidupan sekaligus seperti korban kecelakaan, bayi prematur, pasien yang menjalani operasi besar akan membutuhkan darah yang cukup, pastikan darah Anda setelah pengujian digunakan secara langsung agar saudara kita dapat menggunakannya.</p>
-                        <a href="butuh_darah.php" class="btn btn-primary">Lihat</a>
+                        <a href="butuh_darah.php" class="btn btn-primary" style="visibility: hidden;">Lihat</a>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="panel-body">
                         <p>Beberapa orang yang mengalami cedera serius memerlukan transfusi darah untuk menggantikan darah yang hilang selama cedera. Dengan melakukan donor darah secara rutin akan memastikan bahwa pasokan darah yang aman dan berlimpah tersedia kapan pun dan di mana pun dibutuhkan untuk membantu saudara - saudara kita yang membutuhkannya.</p>
-                        <a href="cari_donor.php" class="btn btn-primary">Lihat</a>
+                        <a href="cari_donor.php" class="btn btn-primary" style="visibility: hidden;">Lihat</a>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@
                 </ul>
             </div>
             <div class="col-md-6">
-                <img class="img-responsive" src="images/contact.jpeg" alt="">
+                <img class="img-responsive" src="images/contact.jpeg" alt="" style="visibility: none;">
             </div>
         </div>
         <!-- /.row -->

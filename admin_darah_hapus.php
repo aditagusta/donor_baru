@@ -13,7 +13,7 @@ if ($sql == TRUE) {
     echo "
     <script>
     alert('Data Darah Gagal dihapus !!!')
-    window.location.href='admin_darahphp'
+    window.location.href='admin_darah.php'
     </script>
     ";
 }

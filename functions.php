@@ -451,6 +451,7 @@ function alertRedirect($pesan, $url)
 {
   echo "<script>
     alert('".$pesan."');
+    document.body.innerHTML = '';
     window.location.href = '".$url."';
   </script>";
 }
@@ -459,6 +460,7 @@ function alert($pesan)
 {
   echo "<script>
           alert('".$pesan."');
+          document.body.innerHTML = '';
         </script>";
 }
 	

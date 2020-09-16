@@ -2,26 +2,23 @@
     session_start();
     require_once "config.php";
     require_once "functions.php";
-    $tgl_awal = date("Y-m-01");
-    $tgl_akhir = date("Y-m-t");
+    $tgl_awal = "";
+    $tgl_akhir = "";
     $id_darah = null;
     $status = "";
     $sql_tambahan = "";
 
-    if(!empty($_GET['tgl_awal']))
+    if(!empty($_GET['tgl_awal']) && !empty($_GET['tgl_akhir']))
     {
         $tgl_awal = $_GET['tgl_awal'];
+        $tgl_akhir = $_GET['tgl_akhir'];
+        $sql_tambahan .= " AND tb_permintaan.tgl_butuh >= DATE('".$tgl_awal."') AND tb_permintaan.tgl_butuh <= DATE('".$tgl_akhir."') ";
     }
 
     if($_GET['id_darah'] != "")
     {
         $id_darah = $_GET['id_darah'];
         $sql_tambahan .= " AND tb_permintaan.id_darah = ".$id_darah;
-    }
-
-    if(!empty($_GET['tgl_akhir']))
-    {
-        $tgl_akhir = $_GET['tgl_akhir'];
     }
 
     if(!empty($_GET['status']))
@@ -35,7 +32,7 @@
             tb_darah.nama_darah
         From
             tb_permintaan Left Join tb_darah On tb_permintaan.id_darah = tb_darah.id_darah 
-            Join tb_rs ON tb_permintaan.id_rs = tb_rs.id_rs WHERE tb_permintaan.tgl_butuh >= DATE('".$tgl_awal."') AND tb_permintaan.tgl_butuh <= DATE('".$tgl_akhir."') ".$sql_tambahan." ORDER BY tb_permintaan.tgl_butuh";
+            Join tb_rs ON tb_permintaan.id_rs = tb_rs.id_rs WHERE 1 ".$sql_tambahan." ORDER BY tb_permintaan.tgl_butuh";
 
     $data_permintaan = $con->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 ?>

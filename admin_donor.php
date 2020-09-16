@@ -2,26 +2,23 @@
     session_start();
     require_once "config.php";
     require_once "functions.php";
-    $tgl_awal = date("Y-m-01");
-    $tgl_akhir = date("Y-m-t");
+    $tgl_awal = "";
+    $tgl_akhir = "";
     $id_darah = null;
     $status = "";
     $sql_tambahan = "";
 
-    if(!empty($_GET['tgl_awal']))
+    if(!empty($_GET['tgl_awal']) && !empty($_GET['tgl_akhir']))
     {
         $tgl_awal = $_GET['tgl_awal'];
+        $tgl_akhir = $_GET['tgl_akhir'];
+        $sql_tambahan .= " AND tb_donor.tgl_donor >= DATE('".$tgl_awal."') AND tb_donor.tgl_donor <= DATE('".$tgl_akhir."')";
     }
 
     if($_GET['id_darah'] != "")
     {
         $id_darah = $_GET['id_darah'];
         $sql_tambahan .= " AND tb_donor.id_darah = ".$id_darah;
-    }
-
-    if(!empty($_GET['tgl_akhir']))
-    {
-        $tgl_akhir = $_GET['tgl_akhir'];
     }
 
     if(!empty($_GET['status']))
@@ -33,7 +30,7 @@
                 ifnull(tb_darah.nama_darah, 'Belum Diatur') as nama_darah
             From
                 tb_donor Left Join
-                tb_darah On tb_donor.id_darah = tb_darah.id_darah WHERE tb_donor.tgl_donor >= DATE('".$tgl_awal."') AND tb_donor.tgl_donor <= DATE('".$tgl_akhir."') ".$sql_tambahan)->fetchAll(PDO::FETCH_ASSOC);
+                tb_darah On tb_donor.id_darah = tb_darah.id_darah WHERE 1 ".$sql_tambahan)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">

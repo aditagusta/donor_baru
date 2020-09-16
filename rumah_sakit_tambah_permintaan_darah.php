@@ -41,7 +41,7 @@
                 <?php include("menu_rumah_sakit.php"); ?>
             </div>
             <div class="col-sm-9 col-xs-12">
-                <h3 class="text-primary"><i class="fa fa-envelope"></i> Booking Jadwal Donor </h3>
+                <h3 class="text-primary"><i class="fa fa-envelope"></i> Tambah Permintaan Darah Baru </h3>
                 <hr>
                 <small><b>*Silahkan isi data dibawah ini dengan benar!</b></small>
                 <br>

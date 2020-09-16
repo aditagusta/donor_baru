@@ -18,7 +18,7 @@
                 <?php include("menu_rumah_sakit.php"); ?>
             </div>
             <div class="col-sm-9 col-xs-12">
-                <h3 class="text-primary"><i class="fa fa-envelope"></i> History Donor Darah Anda </h3>
+                <h3 class="text-primary"><i class="fa fa-envelope"></i> History Permintaan Darah </h3>
                 <hr>
                 <?php
                     $data_permintaan = $con->query("Select

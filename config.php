@@ -1,14 +1,15 @@
 <?php
+date_default_timezone_set('Asia/Jakarta');
 require 'vendor/autoload.php';
 
 // Using Medoo namespace
 use Medoo\Medoo;
-$_DEBUG = true;
+$_DEBUG = false;
 // Initialize
 $con = new Medoo([
 	'database_type' => 'mysql',
-	'database_name' => 'db_donor_baru',
+	'database_name' => 'mandanon_donor',
 	'server' => 'localhost',
-	'username' => 'root',
-	'password' => 'mysql'
+	'username' => 'mandanon_donor',
+	'password' => 'donordarah12345'
 ]);
