@@ -26,7 +26,7 @@
 			echo "<p>Pesan Masuk Pada ".tanggal_indo($data_pesan['tgl_pesan']).substr($data_pesan['tgl_pesan'], 10)."</p>";
 			echo "<p>Isi Pesan : <br> ".$data_pesan['pesan']."</p>";
 			?>
-			<a href="admin_pesan.php" class="btn-sm btn-primary"><i class="fa fa-server"></i> Kembali</a></h3>
+			<a href="admin_pesan.php" class="btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a></h3>
 				<a href="admin_hapus_pesan.php?id=<?php echo $_GET['id']; ?>" class="btn-sm btn-primary"><i class="fa fa-trash"></i> Hapus Pesan</a></h3>
 		</div>
 	</div>

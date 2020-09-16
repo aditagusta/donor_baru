@@ -37,7 +37,7 @@ From
                     </div>
                     <div class="col-sm-8 col-xs-12">
                         <div class="text-right" style="margin-bottom: 7px;">
-                            <a href="user_history_booking.php" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Kembali Ke History Booking</a>
+                            <a href="user_history_booking.php" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Kembali Ke History Booking</a>
                             <a href="user_cetak_booking_donor.php?id_donor=<?=$donor['id_donor']?>" class="btn btn-sm btn-primary"><i class="fa fa-print"></i> Cetak Bukti</a>
                         </div>
                         <table class="table table-striped table-bordered">

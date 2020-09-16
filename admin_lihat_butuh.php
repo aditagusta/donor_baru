@@ -160,7 +160,7 @@ include("config.php");
 				</select>
 			</div>
 			<button type='submit' class='btn btn-success ' name='submit'><i class='fa fa-edit'></i> Perbarui Sekarang</button>
-			<a href='admin_butuh_darah.php' class='btn btn-primary '>Kembali Ke Halaman</a>
+			<a href='admin_butuh_darah.php' class='btn btn-primary'><span class="fa fa-arrow-left"></span> Kembali Ke Halaman</a>
 		</form>
 		</div>
 		<?php

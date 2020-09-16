@@ -105,7 +105,7 @@ From
             <hr>
             <div class="col-xs-12">
                 <div class="text-right" style="margin-bottom: 7px;">
-                    <a href="admin_donor.php" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Kembali</a>
+                    <a href="admin_donor.php" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
                 </div>
                 <form action="" method="POST">
                     <input type="hidden" name="id_donor" value="<?=$_GET['id_donor']?>" />

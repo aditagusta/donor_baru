@@ -114,7 +114,7 @@
             <hr>
             <div class="col-xs-12">
                 <div class="text-right" style="margin-bottom: 7px;">
-                    <a href="admin_permintaan.php" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Kembali</a>
+                    <a href="admin_permintaan.php" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
                 </div>
                 <form action="" method="POST">
                     <input type="hidden" name="id_permintaan" value="<?=$_GET['id_permintaan']?>" />

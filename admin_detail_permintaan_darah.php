@@ -24,7 +24,7 @@
                 <hr>
                     <div class="col-xs-12">
                         <div class="text-right" style="margin-bottom: 7px;">
-                            <a href="admin_permintaan.php" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Kembali</a>
+                            <a href="admin_permintaan.php" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
                             <!-- <a href="user_cetak_booking_donor.php?id_permintaan=<?=$permintaan['id_permintaan']?>" class="btn btn-sm btn-primary"><i class="fa fa-print"></i> Cetak Bukti</a> -->
                         </div>
                         <table class="table table-striped table-bordered">

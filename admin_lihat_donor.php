@@ -38,7 +38,7 @@ From
                     </div>
                     <div class="col-sm-8 col-xs-12">
                         <div class="text-right" style="margin-bottom: 7px;">
-                            <a href="admin_donor.php" class="btn btn-sm btn-primary"><i class="fa fa-server"></i> Kembali</a>
+                            <a href="admin_donor.php" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
                         </div>
                         <table class="table table-striped table-bordered">
                             <tr>
